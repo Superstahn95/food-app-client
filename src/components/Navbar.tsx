@@ -28,7 +28,7 @@ bg-slate-800 text-white"
             to="/"
             className="flex text-2xl cursor-pointer items-center gap-2 w-fit"
           >
-            <PiBowlFoodFill className="w-7 h-7 text-red-600" />
+            <PiBowlFoodFill className="w-7 h-7 text-yellow-600" />
             <span className="font-bold text-sm md:text-xl">Backyard bowl</span>
           </NavLink>
 
@@ -58,7 +58,7 @@ bg-slate-800 text-white"
               >
                 <NavLink
                   className={({ isActive }) =>
-                    isActive ? "text-red-600" : "text-white"
+                    isActive ? "text-yellow-600" : "text-white"
                   }
                   to={link.link}
                 >
@@ -68,7 +68,7 @@ bg-slate-800 text-white"
             ))}
             <button
               type="button"
-              className="text-white bg-transparent border border-red-600  py-1 px-3 md:ml-8 rounded md:static"
+              className="text-white bg-transparent border border-yellow-600  py-1 px-3 md:ml-8 rounded md:static"
             >
               logout
             </button>
