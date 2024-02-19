@@ -3,7 +3,6 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { IoIosCloseCircle } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { FaHouseDamage } from "react-icons/fa";
 import { PiBowlFoodFill } from "react-icons/pi";
 import Container from "./Container";
 
@@ -12,6 +11,9 @@ function Navbar() {
   const links = [
     { name: "Home", link: "/" },
     { name: "Meals", link: "/meals" },
+    { name: "Cart", link: "/cart" },
+    { name: "About", link: "/about" },
+    { name: "Store locations", link: "/locations" },
   ];
 
   return (
@@ -26,7 +28,7 @@ bg-slate-800 text-white"
             to="/"
             className="flex text-2xl cursor-pointer items-center gap-2 w-fit"
           >
-            <PiBowlFoodFill className="w-7 h-7 text-yellow-600" />
+            <PiBowlFoodFill className="w-7 h-7 text-red-600" />
             <span className="font-bold text-sm md:text-xl">Backyard bowl</span>
           </NavLink>
 
@@ -56,7 +58,7 @@ bg-slate-800 text-white"
               >
                 <NavLink
                   className={({ isActive }) =>
-                    isActive ? "text-yellow-500" : "text-white"
+                    isActive ? "text-red-600" : "text-white"
                   }
                   to={link.link}
                 >
@@ -64,6 +66,12 @@ bg-slate-800 text-white"
                 </NavLink>
               </li>
             ))}
+            <button
+              type="button"
+              className="text-white bg-transparent border border-red-600  py-1 px-3 md:ml-8 rounded md:static"
+            >
+              logout
+            </button>
           </ul>
         </div>
       </div>
