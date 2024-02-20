@@ -17,8 +17,8 @@ function Navbar() {
   ];
 
   return (
-    <Container>
-      <div className="shadow-md w-full fixed z-[1999] top-0 left-0 font-montserrat">
+    <div className="shadow-md w-full fixed z-[1999] top-0 left-0 font-montserrat bg-slate-800">
+      <Container>
         <div
           className="md:px-10 py-4 px-7 md:flex justify-between items-center
 bg-slate-800 text-white"
@@ -74,8 +74,8 @@ bg-slate-800 text-white"
             </button>
           </ul>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }
 
