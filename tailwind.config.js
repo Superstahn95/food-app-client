@@ -5,6 +5,8 @@ export default {
     extend: {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
+        dancingScript: ["Dancing Script", "cursive"],
+        niconne: ["Niconne", "cursive"],
       },
     },
   },
