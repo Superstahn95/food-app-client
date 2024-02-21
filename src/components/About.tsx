@@ -9,7 +9,7 @@ function About() {
             <div className="border-[10px]  border-yellow-600 w-[300px] h-[300px] rounded-full overflow-hidden">
               <img
                 className="w-full h-full object-cover"
-                src="/images/meal.jpg"
+                src="/images/rice.jpg"
                 alt="meal"
               />
             </div>
