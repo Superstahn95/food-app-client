@@ -4,6 +4,7 @@ import Services from "../components/Services";
 import About from "../components/About";
 import RecentMeals from "../components/RecentMeals";
 import Team from "../components/Team";
+import Footer from "../components/Footer";
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
       <About />
       <RecentMeals />
       <Team />
+      <Footer />
     </>
   );
 }

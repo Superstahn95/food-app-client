@@ -20,6 +20,7 @@ function MemberCard({ imageAddress, socials, name, post }: Props) {
         <span>{post}</span>
         <div className="flex items-center space-x-2 bg-white rounded-md p-1 text-black mt-3">
           <FaInstagram size={25} />
+
           <FaTwitter size={25} />
           <FaFacebook size={25} />
           <FaLinkedin size={25} />
