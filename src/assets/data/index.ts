@@ -229,4 +229,31 @@ export const categories = [
   },
 ];
 
+export const cart = [
+  {
+    id: "1",
+    name: "Egusi soup",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo.",
+    price: 20000,
+    imageAddress: "/images/rice.jpg",
+  },
+  {
+    id: "2",
+    name: "Coconut rice",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo.",
+    price: 20000,
+    imageAddress: "/images/rice.jpg",
+  },
+  {
+    id: "3",
+    name: "Fried rice",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo.",
+    price: 20000,
+    imageAddress: "/images/rice.jpg",
+  },
+];
+
 export default meals;
