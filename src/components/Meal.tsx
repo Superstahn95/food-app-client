@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAppDispatch } from "../app/hook";
+import { addItem } from "../features/cart/cartSlice";
 
 type Props = {
   id: string;
@@ -8,6 +10,21 @@ type Props = {
 };
 function Meal({ id, name, price, imageAddress }: Props) {
   const [quantity, setQuantity] = useState(1);
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = () => {
+    // dispatch add to cart functionality
+    const data = {
+      id,
+      name,
+      price,
+      quantity,
+      imageAddress,
+    };
+    dispatch(addItem(data)); // add to cart functional
+    // throw a toast
+  };
+
   return (
     <div
       id={name}
@@ -21,8 +38,10 @@ function Meal({ id, name, price, imageAddress }: Props) {
         <p className="font-bold underline text-lg uppercase font-montserrat">
           {name}
         </p>
+        {/* trigger our add to cart functionality */}
         <button
           type="button"
+          onClick={handleAddToCart}
           className="bg-yellow-600 text-white px-3 py-2 rounded-sm uppercase font-bold font-montserrat"
         >
           Add to Cart
