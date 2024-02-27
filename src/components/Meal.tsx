@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { useAppDispatch } from "../app/hook";
 import { addItem } from "../features/cart/cartSlice";
 
@@ -23,6 +24,16 @@ function Meal({ id, name, price, imageAddress }: Props) {
     };
     dispatch(addItem(data)); // add to cart functional
     // throw a toast
+    toast.success(" Added to cart!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   return (
@@ -60,6 +71,18 @@ function Meal({ id, name, price, imageAddress }: Props) {
         </div>
         <span className="self-end font-montserrat">{price}</span>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }

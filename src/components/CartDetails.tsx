@@ -13,7 +13,7 @@ function CartDetails({ onProceedToCheckOut }: Props) {
         Review your order
       </h1>
       <NavLink
-        to="/cart"
+        to="/meals"
         className="bg-yellow-600 text-white flex items-center uppercase w-fit px-2 py-3"
       >
         <CiCirclePlus size={25} />

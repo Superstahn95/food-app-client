@@ -1,11 +1,31 @@
+import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { cart } from "../assets/data";
+import { useAppSelector, useAppDispatch } from "../app/hook";
+import {
+  removeItem,
+  getCartTotal,
+  updateQuantity,
+} from "../features/cart/cartSlice";
 
 type Props = {
   onProceedToCheckOut: () => void;
 };
 
 function CartTable({ onProceedToCheckOut }: Props) {
+  const [isCartUpdated, setIsCartUpdated] = useState(false);
+  const { cart } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+  // const [quantity, setQuantity] = useState(cart)
+  const handleRemoveItem = (id: string) => {
+    dispatch(removeItem(id));
+  };
+  const total = useAppSelector(getCartTotal);
+
+  const handleQuantityChange = (id: string, quantity: number) => {
+    dispatch(updateQuantity({ id, quantity }));
+    setIsCartUpdated(true);
+  };
+
   return (
     <>
       <div className="my-4">
@@ -14,7 +34,11 @@ function CartTable({ onProceedToCheckOut }: Props) {
             key={item.id}
             className="flex items-center justify-between font-montserrat border border-black/80 mt-5 p-4"
           >
-            <button type="button" className="flex items-center space-x-1">
+            <button
+              onClick={() => handleRemoveItem(item.id)}
+              type="button"
+              className="flex items-center space-x-1"
+            >
               <AiOutlineClose />
               <span className="uppercase text-black/60">remove</span>
             </button>
@@ -31,18 +55,21 @@ function CartTable({ onProceedToCheckOut }: Props) {
               <input
                 type="number"
                 className="w-[50px]"
-                // value={quantity}
-                // onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+                value={item.quantity}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleQuantityChange(item.id, parseInt(e.target.value, 10))
+                }
               />
             </div>
-            <div>{item.price}</div>
+            <div>{item.price * item.quantity}</div>
           </div>
         ))}
       </div>
       <div className="w-fit ml-auto mb-4">
         <button
           type="button"
-          className="bg-yellow-600 text-white font-montserrat  uppercase  px-2 py-3"
+          disabled={!isCartUpdated}
+          className={`${isCartUpdated ? "bg-yellow-600" : "bg-slate-400"}  text-white font-montserrat  uppercase  px-2 py-3`}
         >
           Update Cart
         </button>
@@ -50,7 +77,7 @@ function CartTable({ onProceedToCheckOut }: Props) {
       <div className="w-[300px] flex flex-col space-y-3 ml-auto mb-4">
         <div className="flex items-center justify-between">
           <span className="font-bold font-montserrat">TOTAL</span>
-          <span className="font-medium font-montserrat">3000</span>
+          <span className="font-medium font-montserrat">{total}</span>
         </div>
         <button
           type="button"

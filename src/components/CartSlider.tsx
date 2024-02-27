@@ -1,12 +1,18 @@
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { SlHandbag } from "react-icons/sl";
-import { useAppSelector } from "../app/hook";
+import { useAppSelector, useAppDispatch } from "../app/hook";
+import { removeItem } from "../features/cart/cartSlice";
 
 function CartSlider() {
   const [showSlider, setShowSlider] = useState(false);
   // i need to use a hook to check mobile state across my application
   const { cart } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+  const handleItemRemove = (id: string) => {
+    dispatch(removeItem(id));
+  };
   return (
     <div
       className={`${showSlider ? "translate-x-0 rounded-tl-[35px]" : "translate-x-[70%] rounded-l-[35px]"} fixed top-[30%] right-0 bg-white w-[500px]  transition-transform duration-500 ease-in-out`}
@@ -49,19 +55,25 @@ function CartSlider() {
                   <p className="font-bold">{item.price}</p>
                 </div>
                 <div>
-                  <AiOutlineClose size={25} className="text-slate-600" />
+                  <button
+                    type="button"
+                    aria-label="remove item from cart"
+                    onClick={() => handleItemRemove(item.id)}
+                  >
+                    <AiOutlineClose size={25} className="text-slate-600" />
+                  </button>
                 </div>
               </div>
             ))
           )}
         </div>
         <div className="flex items-center space-x-4 my-4">
-          <button
-            type="button"
+          <NavLink
+            to="/cart"
             className="bg-yellow-600 text-white px-3 py-2 uppercase"
           >
             View/Edit Cart
-          </button>
+          </NavLink>
           <button
             type="button"
             className="bg-yellow-600 text-white px-3 py-2 uppercase"
