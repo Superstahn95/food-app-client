@@ -66,12 +66,12 @@ bg-slate-800 text-white"
                 </NavLink>
               </li>
             ))}
-            <button
-              type="button"
+            <NavLink
+              to="/signup"
               className="text-white bg-transparent border border-yellow-600  py-1 px-3 md:ml-8 rounded md:static"
             >
-              logout
-            </button>
+              Login/SignUp
+            </NavLink>
           </ul>
         </div>
       </Container>

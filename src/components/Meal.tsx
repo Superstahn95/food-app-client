@@ -39,37 +39,46 @@ function Meal({ id, name, price, imageAddress }: Props) {
   return (
     <div
       id={name}
-      className="flex items-center space-x-20 py-4 mb-4 border-b border-black"
+      className="flex flex-col md:flex-row items-center space-x-0 md:space-x-8  justify-between py-4 mb-4 border-b border-black/60 max-w-[700px] "
     >
-      <div>
-        <img src={imageAddress} alt={name} className="w-[100px] h-[100px]" />
+      <div className="mb-5 md:mb-0">
+        <img
+          src={imageAddress}
+          alt={name}
+          className="w-[120px] h-[120px] md:w-[100px] md:h-[100px]"
+        />
       </div>
-      {/* name and button */}
-      <div className="space-y-2">
-        <p className="font-bold underline text-lg uppercase font-montserrat">
-          {name}
-        </p>
-        {/* trigger our add to cart functionality */}
-        <button
-          type="button"
-          onClick={handleAddToCart}
-          className="bg-yellow-600 text-white px-3 py-2 rounded-sm uppercase font-bold font-montserrat"
-        >
-          Add to Cart
-        </button>
-      </div>
-      {/* quantity and price */}
-      <div className="flex flex-col space-y-7">
-        <div className="flex items-center space-x-2 ">
-          <span className="font-montserrat">Quantity</span>
-          <input
-            type="number"
-            className="w-[50px]"
-            value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
-          />
+      {/* name and button  div flex with quantity and price */}
+      <div className="flex flex-1 items-center   px-2  w-full md:px-0">
+        {/* name and button */}
+        <div className="flex flex-col space-y-7 ">
+          <p className="font-bold underline text-sm md:text-lg uppercase font-montserrat">
+            {name}
+          </p>
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="bg-yellow-600 text-white text-sm px-2 py-2 md:px-3  rounded-sm uppercase font-bold font-montserrat md:text-lg"
+          >
+            {/* px-3 py-2 */}
+            Add to Cart
+          </button>
         </div>
-        <span className="self-end font-montserrat">{price}</span>
+        {/* quantity and price */}
+        <div className="flex flex-col space-y-7  flex-1 self-end">
+          <div className="flex items-center space-x-2 self-end">
+            <span className="font-montserrat text-sm md:text-lg">Quantity</span>
+            <input
+              type="number"
+              className="w-[50px]"
+              value={quantity}
+              onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+            />
+          </div>
+          <span className="self-end font-montserrat text-sm px-2 py-2 md:px-3  md:text-lg">
+            {price}
+          </span>
+        </div>
       </div>
       <ToastContainer
         position="top-right"

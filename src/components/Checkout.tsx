@@ -3,7 +3,7 @@ import OrderDetails from "./OrderDetails";
 
 function Checkout() {
   return (
-    <div className="mt-20 grid grid-cols-2 gap-14 font-montserrat">
+    <div className="mt-20 grid md:grid-cols-2 gap-14 font-montserrat">
       {/* delivery and billing details container */}
       <div>
         {/* this can be extracted into its own component */}

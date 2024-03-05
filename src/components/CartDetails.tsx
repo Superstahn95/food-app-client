@@ -8,8 +8,8 @@ type Props = {
 
 function CartDetails({ onProceedToCheckOut }: Props) {
   return (
-    <div className="mt-20">
-      <h1 className="uppercase text-3xl text-center font-bold font-montserrat my-4 text-slate-800">
+    <div className="mt-10 md:mt-20">
+      <h1 className="uppercase text-xl md:text-3xl text-center font-bold font-montserrat my-4 text-slate-800">
         Review your order
       </h1>
       <NavLink
