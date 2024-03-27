@@ -1,6 +1,17 @@
 import Container from "./Container";
+import axios from "axios";
 
 function About() {
+  const checkFunctionality = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:4000/api/v1/healthcheck"
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container>
       <div className="my-5 min-h-[60vh] flex items-center justify-center">
@@ -49,6 +60,7 @@ function About() {
             </ul>
             <div className="mt-4">
               <button
+                onClick={checkFunctionality}
                 type="button"
                 className="bg-yellow-600 text-white py-2 px-3 rounded-md capitalize font-bold"
               >

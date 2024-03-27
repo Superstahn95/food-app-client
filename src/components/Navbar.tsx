@@ -5,9 +5,11 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiBowlFoodFill } from "react-icons/pi";
 import Container from "./Container";
+import { useAuth } from "../hooks/useAuth";
 
 function Navbar() {
   const [isOpen, setisOpen] = useState(false);
+  const { user, logout } = useAuth();
   const links = [
     { name: "Home", link: "/" },
     { name: "Meals", link: "/meals" },
@@ -66,12 +68,21 @@ bg-slate-800 text-white"
                 </NavLink>
               </li>
             ))}
-            <NavLink
-              to="/signup"
-              className="text-white bg-transparent border border-yellow-600  py-1 px-3 md:ml-8 rounded md:static"
-            >
-              Login/SignUp
-            </NavLink>
+            {user ? (
+              <button
+                onClick={logout}
+                className="text-white bg-yellow-600 border border-yellow-600  py-1 px-3 md:ml-8 rounded md:static"
+              >
+                Logout
+              </button>
+            ) : (
+              <NavLink
+                to="/signup"
+                className="text-white bg-transparent border border-yellow-600  py-1 px-3 md:ml-8 rounded md:static"
+              >
+                Login/SignUp
+              </NavLink>
+            )}
           </ul>
         </div>
       </Container>

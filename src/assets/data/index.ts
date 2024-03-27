@@ -92,7 +92,7 @@ export const team = [
       linkedIn: "linkedIn",
       twitter: "twitter",
     },
-    imageAddress: "/images/rice.jpg",
+    imageAddress: "/images/ceo.jpg",
   },
   {
     id: "2",
@@ -104,7 +104,7 @@ export const team = [
       linkedIn: "linkedIn",
       twitter: "twitter",
     },
-    imageAddress: "/images/rice.jpg",
+    imageAddress: "/images/logistics.jpg",
   },
   {
     id: "3",
@@ -116,7 +116,7 @@ export const team = [
       linkedIn: "linkedIn",
       twitter: "twitter",
     },
-    imageAddress: "/images/rice.jpg",
+    imageAddress: "/images/chef.jpg",
   },
   {
     id: "4",
@@ -128,7 +128,7 @@ export const team = [
       linkedIn: "linkedIn",
       twitter: "twitter",
     },
-    imageAddress: "/images/rice.jpg",
+    imageAddress: "/images/public-relations.jpg",
   },
 ];
 

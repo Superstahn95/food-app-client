@@ -14,7 +14,7 @@ type Props = {
 };
 function MemberCard({ imageAddress, socials, name, post }: Props) {
   return (
-    <div className="border-[10px] cursor-pointer relative border-yellow-600 w-[300px] h-[300px] overflow-hidden rounded-full group">
+    <div className="border-[5px] cursor-pointer relative border-slate-700 w-[300px] h-[300px] overflow-hidden rounded-full group">
       <div className="absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] w-[80%] h-[80%] rounded-full  flex flex-col items-center justify-center bg-slate-800 text-white font-montserrat invisible  group-hover:visible ">
         <span>{name}</span>
         <span>{post}</span>

@@ -1,9 +1,33 @@
+import { useEffect, useState } from "react";
 import Container from "./Container";
 import MealCard from "./MealCard";
-import meals from "../assets/data";
+// import meals from "../assets/data";
+import axiosInstance from "../utils/axios";
+
+export type TMeal = {
+  _id: string;
+  category: string;
+  cloudinary_id: string;
+  createdAt: string;
+  description: string;
+  mealImage: string;
+  name: string;
+  price: number;
+};
 
 function RecentMeals() {
   //  we will definitely fetch meals here
+  const [meals, setMeals] = useState<TMeal[]>([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const getMeals = async () => {
+      setLoading(true);
+      const { data } = await axiosInstance.get("meal");
+      setMeals(data.data);
+      setLoading(false);
+    };
+    getMeals();
+  }, []);
   return (
     <div
       className="min-h-[50vh] relative"
@@ -27,17 +51,21 @@ function RecentMeals() {
           <h1 className="text-5xl font-niconne text-white capitalize my-2">
             Our Main meals
           </h1>
-          <div className="grid md:grid-cols-2 gap-4 my-7">
-            {meals.map((meal) => (
-              <MealCard
-                key={meal.id}
-                name={meal.name}
-                price={meal.price}
-                imageAddress="/images/pizza.jpg"
-                description={meal.description}
-              />
-            ))}
-          </div>
+          {meals.length < 1 ? (
+            <div className="text-3xl text-white font-bold">NO MEALS YET</div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-4 my-7">
+              {meals.map((meal) => (
+                <MealCard
+                  key={meal._id}
+                  name={meal.name}
+                  price={meal.price}
+                  imageAddress={meal.mealImage}
+                  description={meal.description}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </Container>
     </div>
