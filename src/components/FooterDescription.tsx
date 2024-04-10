@@ -3,9 +3,9 @@ import { PiBowlFoodFill } from "react-icons/pi";
 
 const socials = [
   { id: "1", icon: <FaInstagram size={25} /> },
-  { id: "1", icon: <FaTwitter size={25} /> },
-  { id: "1", icon: <FaFacebook size={25} /> },
-  { id: "1", icon: <FaLinkedin size={25} /> },
+  { id: "2", icon: <FaTwitter size={25} /> },
+  { id: "3", icon: <FaFacebook size={25} /> },
+  { id: "4", icon: <FaLinkedin size={25} /> },
 ];
 
 function FooterDescription() {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Container from "./Container";
 import MealCard from "./MealCard";
-// import meals from "../assets/data";
 import axiosInstance from "../utils/axios";
+// import meals from "../assets/data";
 
 export type TMeal = {
   _id: string;

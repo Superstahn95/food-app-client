@@ -1,17 +1,12 @@
 import Meal from "./Meal";
-
-type MealData = {
-  id: string;
-  name: string;
-  price: number;
-  imageAddress: string;
-};
+import { TMeal } from "./RecentMeals";
 
 type Props = {
+  _id: string;
   name: string;
-  meals: MealData[];
+  meals: TMeal[];
 };
-function Category({ name, meals }: Props) {
+function Category({ name, meals, _id }: Props) {
   return (
     <div>
       <div className="flex items-center space-x-2">
@@ -20,15 +15,30 @@ function Category({ name, meals }: Props) {
           {name}
         </h2>
       </div>
-      {meals.map((meal) => (
+      {meals && meals.length === 0 ? (
+        <div className="font-montserrat text-[20px] py-4 mb-4 border-b border-black/60 max-w-[700px] ">
+          There are no available {name}
+        </div>
+      ) : (
+        meals.map((meal) => (
+          <Meal
+            key={meal._id}
+            id={meal._id}
+            name={meal.name}
+            price={meal.price}
+            imageAddress={meal.mealImage}
+          />
+        ))
+      )}
+      {/* {meals.map((meal) => (
         <Meal
-          key={meal.id}
-          id={meal.id}
+          key={meal._id}
+          id={meal._id}
           name={meal.name}
           price={meal.price}
-          imageAddress={meal.imageAddress}
+          imageAddress={meal.mealImage}
         />
-      ))}
+      ))} */}
     </div>
   );
 }

@@ -42,7 +42,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const registerUser = async (userDetails: RegisterData) => {
     setRegisterLoading(true);
     try {
-      const { data } = await axiosInstance.post("auth/register", userDetails);
+      const { data } = await axiosInstance.post("auth/register", userDetails, {
+        withCredentials: true,
+      });
       setUser(data.data);
       setRegisterLoading(false);
     } catch (error: any) {
@@ -53,10 +55,21 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const loginUser = async (userDetails: LoginData) => {
     setLoginLoading(true);
     try {
-      const { data } = await axiosInstance.post("auth/login", userDetails);
-      setUser(data.data);
+      const { data } = await axiosInstance.post("auth/login", userDetails, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+      console.log(data);
+      const token = data.data.token;
+      axiosInstance.defaults.headers.common["Authorization"] =
+        `Bearer ${token}`;
+      setUser(data.data.user);
       setLoginLoading(false);
     } catch (error: any) {
+      console.log("we are here in the error catch block");
+      console.log(error);
       setError(error.response.data.message);
       setLoginLoading(false);
     }
