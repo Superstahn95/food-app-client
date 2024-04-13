@@ -1,5 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useAuth } from "../hooks/useAuth";
+import FormikProvider from "../context/formikContext";
+import { useFormikContext } from "../hooks/useFormikContext";
 
 type FormField = {
   name: string;
@@ -9,7 +12,8 @@ type FormField = {
 
 function BillingDetails() {
   // the below is to be changed with original user state of the application
-  const auth = false;
+  const { user, registerUser, registerLoading } = useAuth();
+  const { formikRef } = useFormikContext();
   const userBillingInitialValues = {
     number: "",
     address: "",
@@ -61,7 +65,7 @@ function BillingDetails() {
       placeholder: "Enter your password*",
     },
     {
-      label: "Mobbile number",
+      label: "Mobile number",
       name: "number",
       placeholder: "Enter your mobile number*",
     },
@@ -93,17 +97,23 @@ function BillingDetails() {
       placeholder: "Enter delivery address number*",
     },
   ];
-  const formFields: FormField[] = auth ? userFields : guestFields;
+  const formFields: FormField[] = user ? userFields : guestFields;
+
   return (
     <div className="font-montserrat">
       <h2 className="uppercase font-bold text-xl ">Billing Details</h2>
+      {/* <FormikProvider> */}
       <Formik
+        innerRef={formikRef}
         initialValues={
-          auth ? userBillingInitialValues : guestBillingInitialValues
+          user ? userBillingInitialValues : guestBillingInitialValues
         }
-        validationSchema={auth ? userValidationSchema : guestValidationSchema}
+        validationSchema={user ? userValidationSchema : guestValidationSchema}
         onSubmit={(values) => {
-          console.log(values);
+          // console.log(values);
+          user
+            ? console.log("order should be processed")
+            : registerUser(values);
         }}
       >
         <Form className="my-5">
@@ -127,6 +137,7 @@ function BillingDetails() {
           ))}
         </Form>
       </Formik>
+      {/* </FormikProvider> */}
     </div>
   );
 }

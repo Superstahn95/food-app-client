@@ -114,6 +114,7 @@ function RegisterForm() {
           </div>
           <div>
             <button
+              disabled={registerLoading}
               type="submit"
               className="bg-yellow-600 text-white px-3 py-2"
             >

@@ -21,8 +21,8 @@ function CartTable({ onProceedToCheckOut }: Props) {
   };
   const total = useAppSelector(getCartTotal);
 
-  const handleQuantityChange = (id: string, quantity: number) => {
-    dispatch(updateQuantity({ id, quantity }));
+  const handleQuantityChange = (_id: string, quantity: number) => {
+    dispatch(updateQuantity({ _id, quantity }));
     setIsCartUpdated(true);
   };
 
@@ -31,11 +31,11 @@ function CartTable({ onProceedToCheckOut }: Props) {
       <div className="my-4">
         {cart.map((item) => (
           <div
-            key={item.id}
+            key={item._id}
             className="flex items-center justify-between font-montserrat border border-black/80 mt-5 p-4"
           >
             <button
-              onClick={() => handleRemoveItem(item.id)}
+              onClick={() => handleRemoveItem(item._id)}
               type="button"
               className="flex items-center space-x-1"
             >
@@ -44,7 +44,7 @@ function CartTable({ onProceedToCheckOut }: Props) {
             </button>
             <div>
               <img
-                src={item.imageAddress}
+                src={item.mealImage}
                 alt={item.name}
                 className="w-[70px] h-[70px]"
               />
@@ -57,7 +57,7 @@ function CartTable({ onProceedToCheckOut }: Props) {
                 className="w-[50px]"
                 value={item.quantity}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleQuantityChange(item.id, parseInt(e.target.value, 10))
+                  handleQuantityChange(item._id, parseInt(e.target.value, 10))
                 }
               />
             </div>

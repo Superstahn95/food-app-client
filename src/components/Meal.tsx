@@ -2,25 +2,39 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useAppDispatch } from "../app/hook";
 import { addItem } from "../features/cart/cartSlice";
+import { TMeal } from "./RecentMeals";
 
-type Props = {
-  id: string;
-  name: string;
-  price: number;
-  imageAddress: string;
-};
-function Meal({ id, name, price, imageAddress }: Props) {
+// type Props = {
+//   _id: string;
+//   name: string;
+//   price: number;
+//   imageAddress: string;
+// };
+function Meal({
+  _id,
+  name,
+  price,
+  mealImage,
+  category,
+  cloudinary_id,
+  createdAt,
+  description,
+}: TMeal) {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
     // dispatch add to cart functionality
     const data = {
-      id,
+      _id,
       name,
       price,
       quantity,
-      imageAddress,
+      mealImage,
+      category,
+      cloudinary_id,
+      createdAt,
+      description,
     };
     dispatch(addItem(data)); // add to cart functional
     // throw a toast
@@ -43,7 +57,7 @@ function Meal({ id, name, price, imageAddress }: Props) {
     >
       <div className="mb-5 md:mb-0">
         <img
-          src={imageAddress}
+          src={mealImage}
           alt={name}
           className="w-[120px] h-[120px] md:w-[100px] md:h-[100px]"
         />

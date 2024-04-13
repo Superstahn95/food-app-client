@@ -23,22 +23,17 @@ function Category({ name, meals, _id }: Props) {
         meals.map((meal) => (
           <Meal
             key={meal._id}
-            id={meal._id}
+            _id={meal._id}
             name={meal.name}
             price={meal.price}
-            imageAddress={meal.mealImage}
+            mealImage={meal.mealImage}
+            category={meal.category}
+            cloudinary_id={meal.cloudinary_id}
+            createdAt={meal.createdAt}
+            description={meal.description}
           />
         ))
       )}
-      {/* {meals.map((meal) => (
-        <Meal
-          key={meal._id}
-          id={meal._id}
-          name={meal.name}
-          price={meal.price}
-          imageAddress={meal.mealImage}
-        />
-      ))} */}
     </div>
   );
 }

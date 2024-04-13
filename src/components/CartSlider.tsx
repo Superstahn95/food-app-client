@@ -45,7 +45,7 @@ function CartSlider() {
               <div className="flex space-x-4 items-center border-b border-slate-800 p-4 font-montserrat">
                 <div>
                   <img
-                    src={item.imageAddress}
+                    src={item.mealImage}
                     alt={item.name}
                     className="w-[100px] h-[100px]"
                   />
@@ -58,7 +58,7 @@ function CartSlider() {
                   <button
                     type="button"
                     aria-label="remove item from cart"
-                    onClick={() => handleItemRemove(item.id)}
+                    onClick={() => handleItemRemove(item._id)}
                   >
                     <AiOutlineClose size={25} className="text-slate-600" />
                   </button>
