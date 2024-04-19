@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Container from "./Container";
 import MealCard from "./MealCard";
-import axiosInstance from "../utils/axios";
+import axios from "../utils/axios";
 // import meals from "../assets/data";
 
 export type TMeal = {
@@ -22,7 +22,9 @@ function RecentMeals() {
   useEffect(() => {
     const getMeals = async () => {
       setLoading(true);
-      const { data } = await axiosInstance.get("meal");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_GENERAL_API_ENDPOINT}meal`
+      );
       setMeals(data.data);
       setLoading(false);
     };
@@ -57,6 +59,7 @@ function RecentMeals() {
             <div className="grid md:grid-cols-2 gap-4 my-7">
               {meals.map((meal) => (
                 <MealCard
+                  // eslint-disable-next-line no-underscore-dangle
                   key={meal._id}
                   name={meal.name}
                   price={meal.price}

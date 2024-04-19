@@ -3,6 +3,9 @@ import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
 import FormikProvider from "../context/formikContext";
 import { useFormikContext } from "../hooks/useFormikContext";
+import axiosInstance from "../utils/axios";
+import { useAppSelector, useAppDispatch } from "../app/hook";
+import { getCartTotal } from "../features/cart/cartSlice";
 
 type FormField = {
   name: string;
@@ -10,14 +13,27 @@ type FormField = {
   placeholder: string;
 };
 
+type FormData = {
+  deliveryAddress: string;
+  deliveryAddressNumber: string;
+  phoneNumber: string;
+};
+
 function BillingDetails() {
   // the below is to be changed with original user state of the application
+  const { cart } = useAppSelector((state) => state.cart);
+  const totalAmount = useAppSelector(getCartTotal);
   const { user, registerUser, registerLoading } = useAuth();
   const { formikRef } = useFormikContext();
+  // const userBillingInitialValues = {
+  //   number: "",
+  //   address: "",
+  //   houseNumber: "",
+  // };
   const userBillingInitialValues = {
-    number: "",
-    address: "",
-    houseNumber: "",
+    phoneNumber: "",
+    deliveryAddress: "",
+    deliveryAddressNumber: "",
   };
   const guestBillingInitialValues = {
     firstName: "",
@@ -28,6 +44,35 @@ function BillingDetails() {
     address: "",
     houseNumber: "",
   };
+  //send cart items to backend if user exists
+  const processCheckout = async (formData: FormData) => {
+    const orderedMeals = cart.map((meal) => {
+      return { meal: meal._id, quantity: meal.quantity };
+    });
+    try {
+      const { data } = await axiosInstance.post(
+        "payment/create-checkout-session",
+        { orderedMeals, totalAmount, deliveryInfo: formData }
+      );
+      console.log(data.data);
+      // window.location.href = data.data;
+      const paymentWindow = window.open(data.data);
+      if (paymentWindow) {
+        const interval = setInterval(() => {
+          if (paymentWindow.closed) {
+            window.location.href = "/meals";
+            console.log("window closed");
+            clearInterval(interval);
+          }
+        }, 1000);
+      } else {
+        console.log("Unable to open payment window");
+      }
+    } catch (error) {
+      //handle error in a better way
+      console.log(error);
+    }
+  };
 
   const guestValidationSchema = Yup.object({
     firstName: Yup.string().required("first name is  required"),
@@ -36,15 +81,15 @@ function BillingDetails() {
       .email("Enter a valid email")
       .required("Email is required"),
     password: Yup.string().required("Password is required"),
-    number: Yup.string().required("Phone number is required"),
-    address: Yup.string().required("Delivery address is required"),
-    houseNumber: Yup.string().required("House number is required"),
+    phoneNumber: Yup.string().required("Phone number is required"),
+    deliveryAddress: Yup.string().required("Delivery address is required"),
+    deliveryAddressNumber: Yup.string().required("House number is required"),
   });
 
   const userValidationSchema = Yup.object({
-    number: Yup.string().required("Phone number is required"),
-    address: Yup.string().required("Delivery address is required"),
-    houseNumber: Yup.string().required("Address number is required"),
+    phoneNumber: Yup.string().required("Phone number is required"),
+    deliveryAddress: Yup.string().required("Delivery address is required"),
+    deliveryAddressNumber: Yup.string().required("Address number is required"),
   });
 
   const guestFields: FormField[] = [
@@ -66,34 +111,34 @@ function BillingDetails() {
     },
     {
       label: "Mobile number",
-      name: "number",
+      name: "phoneNumber",
       placeholder: "Enter your mobile number*",
     },
     {
       label: "Delivery address",
-      name: "address",
+      name: "deliveryAddress",
       placeholder: "Enter delivery address*",
     },
     {
       label: "Delivery address number",
-      name: "houseNumber",
+      name: "deliveryAddressNumber",
       placeholder: "Enter delivery address number*",
     },
   ];
   const userFields: FormField[] = [
     {
       label: "Mobile number",
-      name: "number",
+      name: "phoneNumber",
       placeholder: "Enter your mobile number*",
     },
     {
       label: "Delivery address",
-      name: "address",
+      name: "deliveryAddress",
       placeholder: "Enter delivery address*",
     },
     {
       label: "Delivery address number",
-      name: "houseNumber",
+      name: "deliveryAddressNumber",
       placeholder: "Enter delivery address number*",
     },
   ];
@@ -111,9 +156,7 @@ function BillingDetails() {
         validationSchema={user ? userValidationSchema : guestValidationSchema}
         onSubmit={(values) => {
           // console.log(values);
-          user
-            ? console.log("order should be processed")
-            : registerUser(values);
+          user ? processCheckout(values) : registerUser(values);
         }}
       >
         <Form className="my-5">

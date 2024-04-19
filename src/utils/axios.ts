@@ -1,9 +1,13 @@
 import axios from "axios";
 
+axios.defaults.baseURL = "http://127.0.0.1:4000/api/v1/";
+axios.defaults.withCredentials = true;
+
 const axiosInstance = axios.create({
   baseURL: "http://127.0.0.1:4000/api/v1/",
+  withCredentials: true,
 });
-
+axiosInstance.defaults.withCredentials = true;
 // axiosInstance.interceptors.response.use(
 //   (response) => response,
 //   (error) => {
@@ -16,4 +20,7 @@ const axiosInstance = axios.create({
 //   }
 // );
 
-export default axiosInstance;
+export default axios;
+// const client = axios.create({
+//   baseURL: "https://fashion-ecommerce-api.onrender.com/api/v1",
+// });

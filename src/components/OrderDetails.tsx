@@ -40,18 +40,14 @@ function OrderDetails() {
           <span>{total}</span>
         </div>
         <div className="flex items-center justify-center">
-          {user ? (
-            <PayStackButton />
-          ) : (
-            <button
-              onClick={handleButtonClick}
-              type="button"
-              className="bg-white text-yellow-600 uppercase font-bold w-[150px] py-2 flex items-center justify-center"
-            >
-              {/* replace with a better loading state */}
-              {registerLoading ? "Loading...." : "Place Order"}
-            </button>
-          )}
+          {/* <button
+            onClick={handleButtonClick}
+            type="button"
+            className="bg-white text-yellow-600 uppercase font-bold w-[150px] py-2 flex items-center justify-center"
+          >
+            {registerLoading ? "Loading...." : "Place Order"}
+          </button> */}
+          <PayStackButton />
         </div>
       </div>
     </div>
