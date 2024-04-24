@@ -1,32 +1,48 @@
+/* eslint-disable no-underscore-dangle */
 import Container from "./Container";
-import { TCategory } from "../pages/Meals";
+import { TCategory } from "../types";
 
 type ControllerProps = {
   loading: boolean;
+  isSelected: string;
   categories: TCategory[];
+  scrollToSection: (index: number) => void;
+  handleSelectedCategory: (id: string) => void;
 };
 
-function CategoryController({ loading, categories }: ControllerProps) {
+function CategoryController({
+  loading,
+  isSelected,
+  categories,
+  scrollToSection,
+  handleSelectedCategory,
+}: ControllerProps) {
   // categories will be fetched on mount of this component later on
   // to be commented out when categories has been created
 
   //  use a better loader component
+  const handleClick = (index: number, id: string) => {
+    handleSelectedCategory(id);
+    scrollToSection(index);
+  };
   return (
-    <div className="bg-white">
+    <div className="bg-white sticky top-[70px]">
       <Container>
         {loading ? (
           <p>Fetching categories</p>
         ) : (
-          <ul className="flex  items-center flex-wrap justify-between   md:space-x-4 font-montserrat text-lg md:text-xl uppercase  md:max-w-[700px]">
-            {categories.map((category) => (
-              <li
+          <div className="flex  items-center flex-wrap justify-between    font-montserrat   md:max-w-[700px]">
+            {categories.map((category, index) => (
+              <button
                 key={category._id}
-                className="text-sm   py-3 min-w-[50px] md:text-lg"
+                className={`py-3 min-w-[50px] text-sm md:text-lg uppercase  cursor-pointer ${isSelected === category._id && "text-yellow-600 font-bold"}`}
+                onClick={() => handleClick(index, category._id)}
+                type="button"
               >
                 {category.name}
-              </li>
+              </button>
             ))}
-          </ul>
+          </div>
         )}
       </Container>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import Meal from "./Meal";
 import { TMeal } from "./RecentMeals";
 
@@ -5,10 +6,12 @@ type Props = {
   _id: string;
   name: string;
   meals: TMeal[];
+  categoryRef: (ref: HTMLDivElement) => void;
+  onScrollIntoView: () => void;
 };
-function Category({ name, meals, _id }: Props) {
+function Category({ name, meals, _id, categoryRef, onScrollIntoView }: Props) {
   return (
-    <div>
+    <div ref={categoryRef} id={`${_id}`}>
       <div className="flex items-center space-x-2">
         <div className="w-2 h-2 md:w-4 md:h-4 bg-yellow-600 rounded-full" />
         <h2 className="font-bold uppercase text-lg md:text-2xl text-yellow-600 font-montserrat py-3">

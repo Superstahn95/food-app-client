@@ -9,7 +9,7 @@ type Props = {
 function CartDetails({ onProceedToCheckOut }: Props) {
   return (
     <div className="mt-10 md:mt-20">
-      <h1 className="uppercase text-xl md:text-3xl text-center font-bold font-montserrat my-4 text-slate-800">
+      <h1 className="uppercase text-lg md:text-3xl text-center font-bold font-montserrat my-4 text-slate-800">
         Review your order
       </h1>
       <NavLink
@@ -17,7 +17,7 @@ function CartDetails({ onProceedToCheckOut }: Props) {
         className="bg-yellow-600 text-white flex items-center uppercase w-fit px-2 py-3"
       >
         <CiCirclePlus size={25} />
-        <div>Add more items</div>
+        <div className="text-xs md:text-lg">Add more items</div>
       </NavLink>
       <CartTable onProceedToCheckOut={onProceedToCheckOut} />
     </div>

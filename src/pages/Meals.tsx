@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-return-assign */
+import { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
@@ -7,50 +10,100 @@ import Category from "../components/Category";
 import CartSlider from "../components/CartSlider";
 // import { categories } from "../assets/data";
 import axiosInstance from "../utils/axios";
-import { TMeal } from "../components/RecentMeals";
+import { TCategory } from "../types";
 
-export type TCategory = {
-  meals: TMeal[];
-  _id: string;
-  name: string;
-};
-
+// to do this later
+// consider sticky category controller here when scrolling to that section of the page
 function Meals() {
-  //fetch categories here and pass it into the category controller and the Category component
   const [categories, setCategories] = useState<TCategory[]>([]);
+  const [stickyHeight, setStickyHeight] = useState<number>(0);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const categoryRefs = useRef<HTMLDivElement[]>([]);
+  const categoryControllerRef = useRef<HTMLDivElement | null>(null);
+  // const buttonRef = useRef<HTMLButtonElement | null>(null);
+  // const handleCategoryRef = (ref: HTMLDivElement | null, index: number) => {
+  //   categoryRefs.current[index] = ref;
+  // };
+  const handleSelectedCategory = (id: string) => {
+    setSelectedCategoryId(id);
+  };
+
   useEffect(() => {
     const getCategories = async () => {
       setLoading(true);
       try {
         const { data } = await axiosInstance.get("category");
-        console.log(data.data);
         setCategories(data.data);
+        setSelectedCategoryId(data.data[0]._id);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setLoading(false);
       }
     };
     getCategories();
   }, []);
+  useEffect(() => {
+    if (categoryControllerRef.current) {
+      const height = categoryControllerRef.current.clientHeight;
+      setStickyHeight(height);
+    }
+  }, []);
+  const handleCategoryClick = (index: number) => {
+    // const topOffset = element.offsetTop - stickyHeight;
+    if (categoryRefs.current[index]) {
+      // const topOffset = categoryRefs.current[index].offsetTop - stickyHeight;
+      // categoryRefs.current[index].scrollTo({
+      //   top: topOffset,
+      //   behavior: "smooth",
+      // });
+      categoryRefs.current[index].scrollIntoView({ behavior: "smooth" });
+      // categoryRefs.current[index].scrollTo({
+      //   top: 300,
+      //   behavior: "smooth",
+      // });
+      // buttonRef.current?.scrollTo({
+      //   top: 700,
+      //   behavior: "smooth",
+      // });
+    }
+  };
+  const handleScroll = (id: string) => {
+    setSelectedCategoryId(id);
+  };
+
   return (
     <>
       <Navbar />
-      <div className="min-h-[40vh] mt-20">
-        <CategoryController loading={loading} categories={categories} />
+      <div ref={categoryControllerRef} className="min-h-[40vh] mt-20">
+        <CategoryController
+          loading={loading}
+          categories={categories}
+          scrollToSection={handleCategoryClick}
+          isSelected={selectedCategoryId}
+          handleSelectedCategory={handleSelectedCategory}
+        />
         <Container>
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <Category
               key={category._id}
               name={category.name}
               meals={category.meals}
               _id={category._id}
+              categoryRef={(ref) => (categoryRefs.current[index] = ref)}
+              onScrollIntoView={() => handleScroll(category._id)}
             />
           ))}
         </Container>
         <CartSlider />
       </div>
+      {/* <button
+        ref={buttonRef}
+        type="button"
+        className="bg-red-500 text-white p-4 rounded-md font-bold"
+      >
+        Check the scroll
+      </button> */}
       <Footer />
     </>
   );

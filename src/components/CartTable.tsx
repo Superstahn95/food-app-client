@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useAppSelector, useAppDispatch } from "../app/hook";
@@ -32,7 +33,7 @@ function CartTable({ onProceedToCheckOut }: Props) {
         {cart.map((item) => (
           <div
             key={item._id}
-            className="flex items-center justify-between font-montserrat border border-black/80 mt-5 p-4"
+            className="flex items-center justify-between font-montserrat border border-black/80 mt-5 p-2 md:p-4"
           >
             <button
               onClick={() => handleRemoveItem(item._id)}
@@ -40,18 +41,22 @@ function CartTable({ onProceedToCheckOut }: Props) {
               className="flex items-center space-x-1"
             >
               <AiOutlineClose />
-              <span className="uppercase text-black/60">remove</span>
+              <span className="uppercase hidden sm:block text-xs  md:text-lg text-black/60">
+                remove
+              </span>
             </button>
             <div>
               <img
                 src={item.mealImage}
                 alt={item.name}
-                className="w-[70px] h-[70px]"
+                className="md:w-[70px] md:h-[70px] w-[50px] h-[50px]"
               />
             </div>
-            <div>{item.name}</div>
+            <div className="capitalize text-xs md:text-lg">{item.name}</div>
             <div className="flex items-center space-x-2 ">
-              <span className="font-montserrat">Quantity</span>
+              <span className="font-montserrat text-xs md:text-lg">
+                Quantity
+              </span>
               <input
                 type="number"
                 className="w-[50px]"
@@ -61,7 +66,9 @@ function CartTable({ onProceedToCheckOut }: Props) {
                 }
               />
             </div>
-            <div>{item.price * item.quantity}</div>
+            <div className="text-xs md:text-lg">
+              {item.price * item.quantity}
+            </div>
           </div>
         ))}
       </div>

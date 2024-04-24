@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { SlHandbag } from "react-icons/sl";
 import { useAppSelector, useAppDispatch } from "../app/hook";
 import { removeItem } from "../features/cart/cartSlice";
+import useScreenMode from "../hooks/useScreenMode";
 
 function CartSlider() {
   const [showSlider, setShowSlider] = useState(false);
@@ -13,7 +15,25 @@ function CartSlider() {
   const handleItemRemove = (id: string) => {
     dispatch(removeItem(id));
   };
-  return (
+  const { isMobile } = useScreenMode();
+  return isMobile ? (
+    <NavLink
+      to="/cart"
+      className="rounded-l-[35px] fixed top-[45%] right-0 bg-yellow-600 text-white w-[150px]"
+    >
+      <div className="flex items-center  space-x-5 pl-4 py-4 ">
+        <div className="relative text-white">
+          <div className="absolute -top-2 -right-4 bg-white w-5 h-5 flex items-center justify-center text-xs rounded-full text-yellow-600">
+            {cart.length}
+          </div>
+          <SlHandbag size={20} />
+        </div>
+        <div className="bg-white flex-1 font-montserrat rounded-l-md text-black">
+          Cart
+        </div>
+      </div>
+    </NavLink>
+  ) : (
     <div
       className={`${showSlider ? "translate-x-0 rounded-tl-[35px]" : "translate-x-[70%] rounded-l-[35px]"} fixed top-[30%] right-0 bg-white w-[500px]  transition-transform duration-500 ease-in-out`}
     >

@@ -72,7 +72,7 @@ function Meal({
           <button
             type="button"
             onClick={handleAddToCart}
-            className="bg-yellow-600 text-white text-sm px-2 py-2 md:px-3  rounded-sm uppercase font-bold font-montserrat md:text-lg"
+            className="bg-yellow-600 text-white text-sm px-2 py-2 md:px-3  rounded-sm uppercase font-bold font-montserrat md:text-lg w-[150px] md:w-[200px]"
           >
             {/* px-3 py-2 */}
             Add to Cart
