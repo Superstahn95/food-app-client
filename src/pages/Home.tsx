@@ -39,7 +39,7 @@ function Home() {
       <About />
       <RecentMeals />
       <Team />
-      <div className="flex items-center space-x-4">
+      {/* <div className="flex items-center space-x-4">
         <button
           type="button"
           onClick={accessProtectedRoute}
@@ -54,7 +54,7 @@ function Home() {
         >
           Refresh token route
         </button>
-      </div>
+      </div> */}
       <Footer />
     </>
   );

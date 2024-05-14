@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable no-underscore-dangle */
 import Container from "./Container";
 import { TCategory } from "../types";
+import SkeletonElement from "./skeletons/SkeletonElement";
 
 type ControllerProps = {
   loading: boolean;
@@ -29,7 +31,13 @@ function CategoryController({
     <div className="bg-white sticky top-[70px]">
       <Container>
         {loading ? (
-          <p>Fetching categories</p>
+          <div className="flex  items-center flex-wrap justify-between    font-montserrat   md:max-w-[700px]">
+            {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+              <button type="button" disabled className="py-3">
+                <SkeletonElement key={n} type="text" />
+              </button>
+            ))}
+          </div>
         ) : (
           <div className="flex  items-center flex-wrap justify-between    font-montserrat   md:max-w-[700px]">
             {categories.map((category, index) => (

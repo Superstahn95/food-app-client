@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { TMeal } from "../../components/RecentMeals";

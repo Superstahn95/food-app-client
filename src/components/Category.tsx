@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import Meal from "./Meal";
 import { TMeal } from "./RecentMeals";
+import SkeletonElement from "./skeletons/SkeletonElement";
 
 type Props = {
   _id: string;
@@ -8,15 +9,27 @@ type Props = {
   meals: TMeal[];
   categoryRef: (ref: HTMLDivElement) => void;
   onScrollIntoView: () => void;
+  loading: boolean;
 };
-function Category({ name, meals, _id, categoryRef, onScrollIntoView }: Props) {
+function Category({
+  name,
+  meals,
+  _id,
+  categoryRef,
+  loading,
+  onScrollIntoView,
+}: Props) {
   return (
     <div ref={categoryRef} id={`${_id}`}>
       <div className="flex items-center space-x-2">
         <div className="w-2 h-2 md:w-4 md:h-4 bg-yellow-600 rounded-full" />
-        <h2 className="font-bold uppercase text-lg md:text-2xl text-yellow-600 font-montserrat py-3">
-          {name}
-        </h2>
+        {loading ? (
+          <SkeletonElement type="header" />
+        ) : (
+          <h2 className="font-bold uppercase text-lg md:text-2xl text-yellow-600 font-montserrat py-3">
+            {name}
+          </h2>
+        )}
       </div>
       {meals && meals.length === 0 ? (
         <div className="font-montserrat text-[20px] py-4 mb-4 border-b border-black/60 max-w-[700px] ">

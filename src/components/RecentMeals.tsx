@@ -25,7 +25,7 @@ function RecentMeals() {
       const { data } = await axios.get(
         `${import.meta.env.VITE_GENERAL_API_ENDPOINT}meal`
       );
-      setMeals(data.data);
+      setMeals(data.data.slice(0, 10));
       setLoading(false);
     };
     getMeals();

@@ -44,7 +44,7 @@ function BillingDetails() {
     address: "",
     houseNumber: "",
   };
-  //send cart items to backend if user exists
+  // send cart items to backend if user exists
   const processCheckout = async (formData: FormData) => {
     const orderedMeals = cart.map((meal) => {
       return { meal: meal._id, quantity: meal.quantity };
@@ -56,7 +56,7 @@ function BillingDetails() {
       );
       console.log(data.data);
       // window.location.href = data.data;
-      const paymentWindow = window.open(data.data);
+      const paymentWindow = window.open(data.data, "_blank");
       if (paymentWindow) {
         const interval = setInterval(() => {
           if (paymentWindow.closed) {
@@ -69,7 +69,7 @@ function BillingDetails() {
         console.log("Unable to open payment window");
       }
     } catch (error) {
-      //handle error in a better way
+      // handle error in a better way
       console.log(error);
     }
   };

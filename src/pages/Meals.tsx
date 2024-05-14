@@ -11,6 +11,7 @@ import CartSlider from "../components/CartSlider";
 // import { categories } from "../assets/data";
 import axiosInstance from "../utils/axios";
 import { TCategory } from "../types";
+import MealSkeleton from "../components/skeletons/MealSkeleton";
 
 // to do this later
 // consider sticky category controller here when scrolling to that section of the page
@@ -84,7 +85,20 @@ function Meals() {
           handleSelectedCategory={handleSelectedCategory}
         />
         <Container>
-          {categories.map((category, index) => (
+          {loading
+            ? [1, 2, 3, 4, 5].map((n) => <MealSkeleton key={n} />)
+            : categories.map((category, index) => (
+                <Category
+                  loading={loading}
+                  key={category._id}
+                  name={category.name}
+                  meals={category.meals}
+                  _id={category._id}
+                  categoryRef={(ref) => (categoryRefs.current[index] = ref)}
+                  onScrollIntoView={() => handleScroll(category._id)}
+                />
+              ))}
+          {/* {categories.map((category, index) => (
             <Category
               key={category._id}
               name={category.name}
@@ -93,7 +107,7 @@ function Meals() {
               categoryRef={(ref) => (categoryRefs.current[index] = ref)}
               onScrollIntoView={() => handleScroll(category._id)}
             />
-          ))}
+          ))} */}
         </Container>
         <CartSlider />
       </div>
