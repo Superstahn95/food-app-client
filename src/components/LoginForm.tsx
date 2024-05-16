@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
+import AuthLoader from "./AuthLoader";
 
 function LoginForm() {
   const { loginUser, loginLoading } = useAuth();
@@ -12,6 +12,7 @@ function LoginForm() {
   };
   return (
     <div className="flex-1">
+      {loginLoading && <AuthLoader process="Logging in" />}
       <h2 className="text-yellow-600 font-bold text-3xl ">Sign In</h2>
       <p className="py-3">Welcome back! Sign in to your account</p>
       <Formik
@@ -28,7 +29,7 @@ function LoginForm() {
       >
         <Form>
           <div className="mb-4">
-            <label htmlFor="email">Email Address</label>
+            <span>Email Address</span>
             <Field
               name="email"
               type="text"
@@ -43,7 +44,7 @@ function LoginForm() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="email">Password</label>
+            <span>Password</span>
             <Field
               name="password"
               type="text"

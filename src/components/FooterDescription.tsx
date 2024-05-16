@@ -13,7 +13,7 @@ function FooterDescription() {
     <div className="text-white">
       <div className="flex items-center space-x-1">
         <PiBowlFoodFill className="w-7 h-7 text-yellow-600" />
-        <h2 className="font-bold font-niconne text-lg">Backyard Bowl</h2>
+        <h2 className="font-bold font-niconne text-lg">EatWithUs</h2>
       </div>
       <p className="text-sm font-montserrat leading-loose tracking-wide my-5 py-2">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum

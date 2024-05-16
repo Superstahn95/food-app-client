@@ -31,7 +31,7 @@ bg-slate-800 text-white"
             className="flex text-2xl cursor-pointer items-center gap-2 w-fit"
           >
             <PiBowlFoodFill className="w-7 h-7 text-yellow-600" />
-            <span className="font-bold text-sm md:text-xl">Backyard bowl</span>
+            <span className="font-bold text-sm md:text-xl">EatWithUs</span>
           </NavLink>
 
           {/* menu icon */}

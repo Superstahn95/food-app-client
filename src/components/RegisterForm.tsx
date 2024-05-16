@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axiosInstance from "../utils/axios";
 import { useAuth } from "../hooks/useAuth";
+import AuthLoader from "./AuthLoader";
 
 function RegisterForm() {
   const { registerUser, registerLoading } = useAuth();
@@ -14,6 +14,7 @@ function RegisterForm() {
   };
   return (
     <div className="flex-1">
+      {registerLoading && <AuthLoader process="Signing up" />}
       <h2 className="text-yellow-600 font-bold text-3xl ">
         Create new account
       </h2>
