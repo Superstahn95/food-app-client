@@ -88,7 +88,9 @@ function Cart() {
               {currentStep === 1 && (
                 <CartDetails onProceedToCheckOut={handleProceedToCheckOut} />
               )}
-              {currentStep === 2 && <Checkout />}
+              {currentStep === 2 && (
+                <Checkout handleOrderCompleted={handleOrderCompleted} />
+              )}
               {currentStep === 3 && <OrderComplete />}
             </>
           )}

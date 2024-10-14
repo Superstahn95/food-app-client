@@ -8,7 +8,7 @@ import Container from "../components/Container";
 import CategoryController from "../components/CategoryController";
 import Category from "../components/Category";
 import CartSlider from "../components/CartSlider";
-// import { categories } from "../assets/data";
+import ErrorRetry from "../components/ErrorRetry";
 import axiosInstance from "../utils/axios";
 import { TCategory } from "../types";
 import MealSkeleton from "../components/skeletons/MealSkeleton";
@@ -20,6 +20,7 @@ function Meals() {
   const [stickyHeight, setStickyHeight] = useState<number>(0);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState(false);
   const categoryRefs = useRef<HTMLDivElement[]>([]);
   const categoryControllerRef = useRef<HTMLDivElement | null>(null);
   // const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -29,19 +30,21 @@ function Meals() {
   const handleSelectedCategory = (id: string) => {
     setSelectedCategoryId(id);
   };
-
+  const getCategories = async () => {
+    setIsError(false);
+    setLoading(true);
+    try {
+      const { data } = await axiosInstance.get("category");
+      setCategories(data.data);
+      setSelectedCategoryId(data.data[0]._id);
+    } catch (error) {
+      console.log("we got an error here");
+      setIsError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const getCategories = async () => {
-      setLoading(true);
-      try {
-        const { data } = await axiosInstance.get("category");
-        setCategories(data.data);
-        setSelectedCategoryId(data.data[0]._id);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
     getCategories();
   }, []);
   useEffect(() => {
@@ -76,29 +79,34 @@ function Meals() {
   return (
     <>
       <Navbar />
-      <div ref={categoryControllerRef} className="min-h-[40vh] mt-20">
-        <CategoryController
-          loading={loading}
-          categories={categories}
-          scrollToSection={handleCategoryClick}
-          isSelected={selectedCategoryId}
-          handleSelectedCategory={handleSelectedCategory}
-        />
-        <Container>
-          {loading
-            ? [1, 2, 3, 4, 5].map((n) => <MealSkeleton key={n} />)
-            : categories.map((category, index) => (
-                <Category
-                  loading={loading}
-                  key={category._id}
-                  name={category.name}
-                  meals={category.meals}
-                  _id={category._id}
-                  categoryRef={(ref) => (categoryRefs.current[index] = ref)}
-                  onScrollIntoView={() => handleScroll(category._id)}
-                />
-              ))}
-          {/* {categories.map((category, index) => (
+      {isError ? (
+        <div className="min-h-[70vh] flex justify-center items-center">
+          <ErrorRetry callback={getCategories} />
+        </div>
+      ) : (
+        <div ref={categoryControllerRef} className="min-h-[40vh] mt-20">
+          <CategoryController
+            loading={loading}
+            categories={categories}
+            scrollToSection={handleCategoryClick}
+            isSelected={selectedCategoryId}
+            handleSelectedCategory={handleSelectedCategory}
+          />
+          <Container>
+            {loading
+              ? [1, 2, 3, 4, 5].map((n) => <MealSkeleton key={n} />)
+              : categories.map((category, index) => (
+                  <Category
+                    loading={loading}
+                    key={category._id}
+                    name={category.name}
+                    meals={category.meals}
+                    _id={category._id}
+                    categoryRef={(ref) => (categoryRefs.current[index] = ref)}
+                    onScrollIntoView={() => handleScroll(category._id)}
+                  />
+                ))}
+            {/* {categories.map((category, index) => (
             <Category
               key={category._id}
               name={category.name}
@@ -108,9 +116,11 @@ function Meals() {
               onScrollIntoView={() => handleScroll(category._id)}
             />
           ))} */}
-        </Container>
-        <CartSlider />
-      </div>
+          </Container>
+          <CartSlider />
+        </div>
+      )}
+
       {/* <button
         ref={buttonRef}
         type="button"

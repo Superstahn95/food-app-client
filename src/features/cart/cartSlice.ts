@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
@@ -59,10 +60,15 @@ const cartSlice = createSlice({
         meal.quantity = quantity;
       }
     },
+    resetCart: (state) => {
+      const updatedCart: [] = [];
+      state.cart = updatedCart;
+    },
   },
 });
 
-export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
+export const { addItem, removeItem, updateQuantity, resetCart } =
+  cartSlice.actions;
 export const selectCartItems = (state: { cart: CartState }) => state.cart.cart;
 export const getCartTotal = createSelector(selectCartItems, (items) =>
   items.reduce((total, item) => total + item.price * item.quantity, 0)

@@ -1,6 +1,8 @@
+import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../app/hook";
 import { selectCartItems, getCartTotal } from "../features/cart/cartSlice";
 import PayStackButton from "./PayStackButton";
+import { useAuth } from "../hooks/useAuth";
 
 type OrderProps = {
   deliveryAddress: string;
@@ -17,6 +19,7 @@ function OrderDetails({
 }: OrderProps) {
   const cart = useAppSelector(selectCartItems);
   const total = useAppSelector(getCartTotal);
+  const { user } = useAuth();
   return (
     <div>
       <h2 className="uppercase font-bold text-xl ">Order details</h2>
@@ -56,12 +59,25 @@ function OrderDetails({
               {registerLoading ? "Loading...." : "Place Order"}
             </button>
           )} */}
-          <PayStackButton
-            deliveryAddress={deliveryAddress}
-            deliveryAddressNumber={deliveryAddressNumber}
-            phoneNumber={phoneNumber}
-            handleCheckOut={handleCheckOut}
-          />
+          {user ? (
+            <PayStackButton
+              deliveryAddress={deliveryAddress}
+              deliveryAddressNumber={deliveryAddressNumber}
+              phoneNumber={phoneNumber}
+              handleCheckOut={handleCheckOut}
+            />
+          ) : (
+            <div className="text-red-500">
+              <NavLink to="/signup" className="underline">
+                Login{" "}
+              </NavLink>{" "}
+              or{" "}
+              <NavLink to="/signup" className="underline">
+                signup{" "}
+              </NavLink>
+              to place your order
+            </div>
+          )}
         </div>
       </div>
     </div>

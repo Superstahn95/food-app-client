@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { LuLoader2 } from "react-icons/lu";
 import { IoIosCloseCircle } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiBowlFoodFill } from "react-icons/pi";
@@ -9,7 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 
 function Navbar() {
   const [isOpen, setisOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, logout, logoutLoading } = useAuth();
   const links = [
     { name: "Home", link: "/" },
     { name: "Meals", link: "/meals" },
@@ -70,10 +71,15 @@ bg-slate-800 text-white"
             ))}
             {user ? (
               <button
+                type="button"
                 onClick={logout}
                 className="text-white bg-yellow-600 border border-yellow-600  py-1 px-3 md:ml-8 rounded md:static"
               >
-                Logout
+                {logoutLoading ? (
+                  <LuLoader2 color="white" className="animate-spin" />
+                ) : (
+                  " Logout"
+                )}
               </button>
             ) : (
               <NavLink

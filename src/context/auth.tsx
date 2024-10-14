@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   createContext,
   useState,
@@ -33,6 +35,7 @@ interface AuthContextType {
   error: string | null;
   loginLoading: boolean;
   registerLoading: boolean;
+  logoutLoading: boolean;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   loginUser: (userDetails: LoginData) => void;
   registerUser: (userDetails: RegisterData) => void;
@@ -47,6 +50,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [loginLoading, setLoginLoading] = useState(false);
   const [registerLoading, setRegisterLoading] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
   const registerUser = useCallback(async (userDetails: RegisterData) => {
     setRegisterLoading(true);
     try {
@@ -98,8 +102,22 @@ function AuthProvider({ children }: { children: ReactNode }) {
       console.log(error);
     }
   }, []);
-  const logout = useCallback(() => {
-    setUser(null);
+  const logout = useCallback(async () => {
+    setLogoutLoading(true);
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_GENERAL_API_ENDPOINT}auth/logout`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(data.data);
+      setUser(null);
+      setLogoutLoading(false);
+    } catch (error: any) {
+      console.log(error);
+      setLogoutLoading(false);
+    }
   }, []);
 
   const authContextValue = useMemo<AuthContextType>(
@@ -108,6 +126,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
       error,
       loginLoading,
       registerLoading,
+      logoutLoading,
       setError,
       loginUser,
       registerUser,
@@ -119,6 +138,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
       error,
       loginLoading,
       registerLoading,
+      logoutLoading,
       setError,
       loginUser,
       registerUser,

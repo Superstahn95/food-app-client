@@ -47,7 +47,11 @@ function PayStackButton({
     setReference(`order_${uuidv4()}`);
   }, []);
   return !deliveryAddress || !deliveryAddressNumber || !phoneNumber ? (
-    <button type="button" onClick={popUpModal}>
+    <button
+      type="button"
+      onClick={popUpModal}
+      className="bg-white text-yellow-600 uppercase font-bold w-[150px] py-2 flex items-center justify-center"
+    >
       Click to pay
     </button>
   ) : (

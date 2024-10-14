@@ -1,4 +1,3 @@
-import axios from "axios";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
@@ -8,29 +7,29 @@ import Team from "../components/Team";
 import Footer from "../components/Footer";
 
 function Home() {
-  const accessProtectedRoute = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_GENERAL_API_ENDPOINT}auth/protected`
-      );
-      console.log(data);
-    } catch (error) {
-      console.log("error accessing protected route");
-      console.log(error);
-    }
-  };
-  const hitRefreshToken = async () => {
-    try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_GENERAL_API_ENDPOINT}auth/refresh-token`,
-        {}
-      );
-      console.log(data);
-    } catch (error) {
-      console.log("we have an error in refreshing access token");
-      console.log(error);
-    }
-  };
+  // const accessProtectedRoute = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${import.meta.env.VITE_GENERAL_API_ENDPOINT}auth/protected`
+  //     );
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log("error accessing protected route");
+  //     console.log(error);
+  //   }
+  // };
+  // const hitRefreshToken = async () => {
+  //   try {
+  //     const { data } = await axios.post(
+  //       `${import.meta.env.VITE_GENERAL_API_ENDPOINT}auth/refresh-token`,
+  //       {}
+  //     );
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log("we have an error in refreshing access token");
+  //     console.log(error);
+  //   }
+  // };
   return (
     <>
       <Navbar />

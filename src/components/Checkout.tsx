@@ -6,11 +6,15 @@ import axios from "axios";
 import { useAppSelector } from "../app/hook";
 import BillingDetails from "./BillingDetails";
 import OrderDetails from "./OrderDetails";
-import FormikProvider from "../context/formikContext";
 import { getCartTotal } from "../features/cart/cartSlice";
 import AuthLoader from "./AuthLoader";
+import DeliveryMethod from "./DeliveryMethod";
 
-function Checkout() {
+type CheckoutProps = {
+  handleOrderCompleted: () => void;
+};
+
+function Checkout({ handleOrderCompleted }: CheckoutProps) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [deliveryAddressNumber, setDeliveryAddressNumber] = useState("");
@@ -30,7 +34,7 @@ function Checkout() {
         deliveryAddressNumber,
       },
       orderedMeals,
-      totalaAmount: total,
+      totalAmount: total,
       paymentReference: ref,
     };
     try {
@@ -41,6 +45,7 @@ function Checkout() {
       console.log(data.data);
       console.log("order has been sent to backend");
       setLoading(false);
+      handleOrderCompleted();
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -74,26 +79,7 @@ function Checkout() {
     <div className="mt-20 grid md:grid-cols-2 gap-14 font-montserrat">
       {/* delivery and billing details container */}
       <div>
-        {/* this can be extracted into its own component */}
-        <div>
-          <h2 className="uppercase font-bold text-xl">Delivery method</h2>
-          <div className="flex items-center justify-center space-x-3  w-fit my-4">
-            <button
-              type="button"
-              className="flex items-center space-x-2 border border-black p-2"
-            >
-              <div className="w-4 h-4 rounded-full border border-black" />
-              <span>Delivery</span>
-            </button>
-            <button
-              type="button"
-              className="flex items-center space-x-2 border border-black p-2"
-            >
-              <div className="w-4 h-4 rounded-full border border-black " />
-              <span>Pick up</span>
-            </button>
-          </div>
-        </div>
+        {/* <DeliveryMethod /> */}
         {/* form details to also be sent to backend */}
         <BillingDetails
           setDeliveryAddress={setDeliveryAddress}

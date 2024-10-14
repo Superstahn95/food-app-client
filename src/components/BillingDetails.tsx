@@ -1,6 +1,4 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable no-underscore-dangle */
 
 type BillingProps = {
   setDeliveryAddress: React.Dispatch<React.SetStateAction<string>>;
@@ -15,11 +13,8 @@ function BillingDetails({
 }: BillingProps) {
   return (
     <div className="font-montserrat">
-      <h2 className="uppercase font-bold text-xl ">Billing Details</h2>
-
+      <h2 className="uppercase font-bold text-xl ">Delivery Details</h2>
       <form className="my-5">
-        {/* use formik for this form */}
-
         <div className="mb-3 flex flex-col">
           <label htmlFor="phoneNumber">Mobile number</label>
           <input
@@ -48,8 +43,6 @@ function BillingDetails({
           />
         </div>
       </form>
-
-      {/* </FormikProvider> */}
     </div>
   );
 }
