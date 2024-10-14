@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/require-default-props */
 import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin } from "react-icons/fa";
 
 type Socials = {
@@ -9,10 +11,10 @@ type Socials = {
 type Props = {
   imageAddress: string;
   name: string;
-  socials: Socials;
+  socials?: Socials;
   post: string;
 };
-function MemberCard({ imageAddress, socials, name, post }: Props) {
+function MemberCard({ imageAddress, name, post }: Props) {
   return (
     <div className="border-[5px] cursor-pointer relative border-slate-700 w-[300px] h-[300px] overflow-hidden rounded-full group">
       <div className="absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] w-[80%] h-[80%] rounded-full  flex flex-col items-center justify-center bg-slate-800 text-white font-montserrat invisible  group-hover:visible ">

@@ -1,5 +1,5 @@
 import { createContext, useRef, ReactNode } from "react";
-import { FormikHelpers, FormikProps } from "formik";
+import { FormikProps } from "formik";
 
 interface FormContextType {
   handleSubmit: () => void;
@@ -19,9 +19,7 @@ export default function FormikProvider({ children }: FormikProp) {
   //   const formikRef = useRef<FormikHelpers<any>>(null);
   const formikRef = useRef<FormikProps<any>>(null);
   const handleSubmit = () => {
-    console.log("The function in the context is being triggered");
     if (formikRef.current) {
-      console.log("Inside this conditional");
       formikRef.current.submitForm();
     }
   };

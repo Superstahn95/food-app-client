@@ -16,9 +16,9 @@ function Cart() {
   const handleProceedToCheckOut = (): void => {
     setCurrentStep(2);
   };
-  const handleGoBackToCart = (): void => {
-    setCurrentStep(1);
-  };
+  // const handleGoBackToCart = (): void => {
+  //   setCurrentStep(1);
+  // };
   const handleOrderCompleted = (): void => {
     setCurrentStep(3);
   };

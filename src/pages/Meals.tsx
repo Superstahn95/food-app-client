@@ -38,7 +38,6 @@ function Meals() {
       setCategories(data.data);
       setSelectedCategoryId(data.data[0]._id);
     } catch (error) {
-      console.log("we got an error here");
       setIsError(true);
     } finally {
       setLoading(false);
@@ -73,6 +72,7 @@ function Meals() {
     }
   };
   const handleScroll = (id: string) => {
+    console.log(stickyHeight);
     setSelectedCategoryId(id);
   };
 

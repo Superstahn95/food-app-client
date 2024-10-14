@@ -8,7 +8,6 @@ import BillingDetails from "./BillingDetails";
 import OrderDetails from "./OrderDetails";
 import { getCartTotal } from "../features/cart/cartSlice";
 import AuthLoader from "./AuthLoader";
-import DeliveryMethod from "./DeliveryMethod";
 
 type CheckoutProps = {
   handleOrderCompleted: () => void;

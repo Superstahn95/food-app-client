@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-underscore-dangle */
 import Meal from "./Meal";
 import { TMeal } from "./RecentMeals";
@@ -8,17 +10,10 @@ type Props = {
   name: string;
   meals: TMeal[];
   categoryRef: (ref: HTMLDivElement) => void;
-  onScrollIntoView: () => void;
+  onScrollIntoView?: () => void;
   loading: boolean;
 };
-function Category({
-  name,
-  meals,
-  _id,
-  categoryRef,
-  loading,
-  onScrollIntoView,
-}: Props) {
+function Category({ name, meals, _id, categoryRef, loading }: Props) {
   return (
     <div ref={categoryRef} id={`${_id}`}>
       <div className="flex items-center space-x-2">
