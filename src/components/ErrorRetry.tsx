@@ -9,7 +9,7 @@ function ErrorRetry({ callback, text = "click to retry" }: RetryProps) {
     <button
       type="button"
       onClick={callback}
-      className="text-white bg-red-600 px-5 py-2 capitalize"
+      className="text-white bg-red-600 px-5 py-2 capitalize font-montserrat"
     >
       {text}
     </button>

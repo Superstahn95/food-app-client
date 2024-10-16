@@ -33,7 +33,7 @@ function CategoryController({
         {loading ? (
           <div className="flex  items-center flex-wrap justify-between    font-montserrat   md:max-w-[700px]">
             {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-              <button type="button" disabled className="py-3">
+              <button type="button" disabled className="py-3" key={n}>
                 <SkeletonElement key={n} type="text" />
               </button>
             ))}

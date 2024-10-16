@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { GrStatusGood } from "react-icons/gr";
 import { useAppDispatch } from "../app/hook";
-import { addItem } from "../features/cart/cartSlice";
+import {
+  addItem,
+  getSingleCartItem,
+  removeItem,
+} from "../features/cart/cartSlice";
 import { TMeal } from "./RecentMeals";
+import useAppSelector from "../hooks/useAppSelector";
 
 // type Props = {
 //   _id: string;
@@ -22,6 +28,7 @@ function Meal({
 }: TMeal) {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
+  const isItemInCart = useAppSelector((state) => getSingleCartItem(state, _id));
 
   const handleAddToCart = () => {
     // dispatch add to cart functionality
@@ -49,7 +56,9 @@ function Meal({
       theme: "colored",
     });
   };
-
+  const handleItemRemoval = () => {
+    dispatch(removeItem(_id));
+  };
   return (
     <div
       id={name}
@@ -69,30 +78,54 @@ function Meal({
           <p className="font-bold underline text-sm md:text-lg uppercase font-montserrat">
             {name}
           </p>
-          <button
-            type="button"
-            onClick={handleAddToCart}
-            className="bg-yellow-600 text-white text-sm px-2 py-2 md:px-3  rounded-sm uppercase font-bold font-montserrat md:text-lg w-[150px] md:w-[200px]"
-          >
-            {/* px-3 py-2 */}
-            Add to Cart
-          </button>
+          {isItemInCart ? (
+            <button
+              type="button"
+              onClick={handleItemRemoval}
+              className="bg-red-600 text-white text-xs px-2 py-2 md:px-3  rounded-sm uppercase font-bold font-montserrat md:text-sm w-[150px] md:w-[200px]"
+            >
+              Remove from Cart
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className="bg-yellow-600 text-white text-xs px-2 py-2 md:px-3  rounded-sm uppercase font-bold font-montserrat md:text-sm w-[150px] md:w-[200px]"
+            >
+              {/* px-3 py-2 */}
+              Add to Cart
+            </button>
+          )}
         </div>
         {/* quantity and price */}
-        <div className="flex flex-col space-y-7  flex-1 self-end">
-          <div className="flex items-center space-x-2 self-end">
-            <span className="font-montserrat text-sm md:text-lg">Quantity</span>
-            <input
-              type="number"
-              className="w-[50px]"
-              value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
-            />
+        {/* conditionally render this */}
+        {isItemInCart ? (
+          <div className="flex flex-col space-y-7  flex-1 self-end">
+            <div className="flex items-center space-x-2 self-end">
+              <GrStatusGood size={25} color="green" />
+            </div>
+            <p className="text-black self-end font-montserrat text-sm px-2 py-2 md:px-3  md:text-lg ">
+              In cart
+            </p>
           </div>
-          <span className="self-end font-montserrat text-sm px-2 py-2 md:px-3  md:text-lg">
-            {price}
-          </span>
-        </div>
+        ) : (
+          <div className="flex flex-col space-y-7  flex-1 self-end">
+            <div className="flex items-center space-x-2 self-end">
+              <span className="font-montserrat text-sm md:text-lg">
+                Quantity
+              </span>
+              <input
+                type="number"
+                className="w-[50px]"
+                value={quantity}
+                onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+              />
+            </div>
+            <span className="self-end font-montserrat text-sm px-2 py-2 md:px-3  md:text-lg">
+              {price}
+            </span>
+          </div>
+        )}
       </div>
       <ToastContainer
         position="top-right"
@@ -105,6 +138,7 @@ function Meal({
         draggable
         pauseOnHover
         theme="colored"
+        containerId="meal-container"
       />
     </div>
   );

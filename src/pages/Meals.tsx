@@ -80,7 +80,13 @@ function Meals() {
     <>
       <Navbar />
       {isError ? (
-        <div className="min-h-[70vh] flex justify-center items-center">
+        <div className="min-h-[70vh] flex flex-col justify-center items-center">
+          <p className="text-b font-montserrat text-xl">
+            An error occured trying to get our existing menu
+          </p>
+          <p className="text-b font-montserrat mb-3">
+            Don&apos;t fret!!! Hold on a minute and try again
+          </p>
           <ErrorRetry callback={getCategories} />
         </div>
       ) : (

@@ -3,7 +3,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { TMeal } from "../../components/RecentMeals";
-// import { RootState } from "../../app/store";
+import { RootState } from "../../app/store";
 
 export interface Item extends TMeal {
   // _id: string;
@@ -70,6 +70,10 @@ const cartSlice = createSlice({
 export const { addItem, removeItem, updateQuantity, resetCart } =
   cartSlice.actions;
 export const selectCartItems = (state: { cart: CartState }) => state.cart.cart;
+export const getSingleCartItem = (state: RootState, id: string) => {
+  const existingItem = state.cart.cart.find((item) => item._id === id);
+  return existingItem;
+};
 export const getCartTotal = createSelector(selectCartItems, (items) =>
   items.reduce((total, item) => total + item.price * item.quantity, 0)
 );
