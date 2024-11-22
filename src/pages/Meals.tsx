@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-return-assign */
+import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -34,7 +35,10 @@ function Meals() {
     setIsError(false);
     setLoading(true);
     try {
-      const { data } = await axiosInstance.get("category");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_GENERAL_API_ENDPOINT}category`
+      );
+      // const { data } = await axiosInstance.get("category");
       setCategories(data.data);
       setSelectedCategoryId(data.data[0]._id);
     } catch (error) {
@@ -72,7 +76,6 @@ function Meals() {
     }
   };
   const handleScroll = (id: string) => {
-    console.log(stickyHeight);
     setSelectedCategoryId(id);
   };
 
