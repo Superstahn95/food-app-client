@@ -10,7 +10,7 @@ import CategoryController from "../components/CategoryController";
 import Category from "../components/Category";
 import CartSlider from "../components/CartSlider";
 import ErrorRetry from "../components/ErrorRetry";
-import axiosInstance from "../utils/axios";
+// import axiosInstance from "../utils/axios";
 import { TCategory } from "../types";
 import MealSkeleton from "../components/skeletons/MealSkeleton";
 
@@ -57,6 +57,7 @@ function Meals() {
     }
   }, []);
   const handleCategoryClick = (index: number) => {
+    console.log(stickyHeight);
     // const topOffset = element.offsetTop - stickyHeight;
     if (categoryRefs.current[index]) {
       // const topOffset = categoryRefs.current[index].offsetTop - stickyHeight;
